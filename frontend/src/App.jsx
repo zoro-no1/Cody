@@ -29,7 +29,7 @@ function App() {
       <Route path="/NewProject" element={authUser?<NewProject/>:<Navigate to="/auth"/>}/>
       <Route path="/coding" element={authUser?<CodingPage/>:<Navigate to="/auth"/>}/>
       <Route path="/logout" element={authUser?<LogoutPage/>:<Navigate to="/auth"/>}/>
-      <Route path='*' element={<NoPage/>}/>
+      <Route path='/*' element={<NoPage/>}/>
     </Routes>
      
     </>
