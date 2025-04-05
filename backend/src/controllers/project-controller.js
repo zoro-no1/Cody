@@ -16,7 +16,7 @@ export const createProject=async (req,res)=>{
             user:req.user._id 
         })
         return res.status(200).json({
-            mssage:createPro
+            message:createPro
         })
 
     } catch (error) {

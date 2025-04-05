@@ -18,7 +18,6 @@ export const projectStore=create((set,get)=>({
     newProject:async(projectName,projectLanguage)=>{
         try {
             const res=await axiosIn.post("/project/create",{projectName,projectLanguage})
-           console.log(res.data.message);
            
             set({currentProject:res.data.message})
         } catch (error) {
@@ -28,7 +27,7 @@ export const projectStore=create((set,get)=>({
     },
     deleteProject:async(id)=>{
         try {
-            const res=await axiosIn.get(`/project/delete/${id}`)
+            await axiosIn.get(`/project/delete/${id}`)
         } catch (error) {
             console.log(error);
             
