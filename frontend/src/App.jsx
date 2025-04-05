@@ -23,7 +23,7 @@ function App() {
     <>
     <Navbar/>
     <Routes>
-      <Route path='/' element={authUser?<HomePage/>:<Navigate to="/auth"/>}/>
+      <Route path='/' element={<HomePage/>}/>
       <Route path="/auth" element={!authUser?<Signin/>:<Navigate to="/"/>}/>
       <Route path="/projects" element={authUser?<ExistingProject/>:<Navigate to="/auth"/>}/>
       <Route path="/NewProject" element={authUser?<NewProject/>:<Navigate to="/auth"/>}/>

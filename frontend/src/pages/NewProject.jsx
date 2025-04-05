@@ -14,8 +14,8 @@ const NewProject = () => {
 
     try {
      await newProject(name,language)
-      setName("")
-      setLanguage("javascript")
+      // setName("")
+      // setLanguage("")
       navigate("/coding")
     } catch (err) {
       console.log(err);

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { projectStore } from '../store/projectStore';
 
 const CodeEditor = () => {
-  const { currentProject, getCodeRun, outputCode } = projectStore();
+  const { currentProject, getCodeRun, outputCode,saveProject } = projectStore();
   const [code, setCode] = useState(currentProject?.code || '');
   const lan = currentProject?.projectLanguage?.toLowerCase() || 'javascript';
 
@@ -16,9 +16,22 @@ const CodeEditor = () => {
   };
 
   const handleSave = () => {
+    saveProject(code,currentProject._id)
     console.log('Saving code...');
    
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        handleSave();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [code]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 overflow-y-auto flex flex-col">

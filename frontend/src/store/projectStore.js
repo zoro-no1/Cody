@@ -18,6 +18,7 @@ export const projectStore=create((set,get)=>({
     newProject:async(projectName,projectLanguage)=>{
         try {
             const res=await axiosIn.post("/project/create",{projectName,projectLanguage})
+           console.log(res.data.message);
            
             set({currentProject:res.data.message})
         } catch (error) {
@@ -41,9 +42,11 @@ export const projectStore=create((set,get)=>({
         }
     },
     getCodeRun:async(code,lan)=>{
+        console.log(code,lan);
         if(!code||!lan){
             return set({output:"nothing"})
         }
+        
         try {
             const api=axios.create({
                 baseURL:'https://emkc.org/api/v2/piston'
@@ -56,9 +59,22 @@ export const projectStore=create((set,get)=>({
                     "content": code
                   } ],
             })
-            console.log(res.data.run.stdout || res.data.run.stderr);
+            console.log(res.data.run);
             
             set({outputCode:res.data.run.stdout || res.data.run.stderr})
+        } catch (error) {
+            console.log(error);
+            
+        }
+    },
+    saveProject:async(code,projectId)=>{
+        if (!code||!projectId) {
+            return console.log("detail ");
+            
+        }
+        try {
+            const res=await axiosIn.post("/project/codeSave",{code,projectId})
+            
         } catch (error) {
             console.log(error);
             
