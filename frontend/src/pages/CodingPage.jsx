@@ -1,25 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { projectStore } from '../store/projectStore';
+import { MdJavascript } from 'react-icons/md';
 
 const CodeEditor = () => {
-  const { currentProject, getCodeRun, outputCode,saveProject } = projectStore();
-  const [code, setCode] = useState(currentProject?.code || '');
+  const { currentProject, getCodeRun, outputCode,saveProject,isLoading } = projectStore();
+  // const [code, setCode] = useState(currentProject?.code || '');
   const lan = currentProject?.projectLanguage?.toLowerCase() || 'javascript';
+const codeRef=useRef(currentProject?.code||"")
 
+ const extension={
+  java:"java",
+  cpp:"cpp",
+  javascript:"js",
+  python:"py",
+  go:"go"
+ }
+  
   const handleRun = async () => {
     try {
-      await getCodeRun(code, lan);
+      await getCodeRun(codeRef.current, lan);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleSave = () => {
-    saveProject(code,currentProject._id)
-    console.log('Saving code...');
+    console.log(codeRef.current);
+    saveProject(codeRef.current,currentProject._id)
    
   };
+
+  const handleImprot=(e)=>{
+    const file=e.target.files[0]
+    if (!file) {
+      return
+    }
+
+    const reader=new FileReader();
+    reader.readAsText(file)
+    reader.onload=(value)=>{
+      setCode(value.target.result)
+    }
+
+  }
+
+  const handleDownload=()=>{
+    const codeValue=codeRef.current
+    // console.log(codeRef.current);
+     const createblod=new Blob([codeValue],{type:"text/plain"})
+    //  console.log(createblod);
+
+     const url= URL.createObjectURL(createblod)
+
+     const link=document.createElement("a")
+     link.href=url
+     link.download=`${currentProject.projectName}.${extension[lan]}`
+     link.click()
+     
+    
+  }
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -31,7 +71,9 @@ const CodeEditor = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [code]);
+  }, [codeRef.current]);
+
+
 
   return (
     <div className="min-h-[80vh] bg-gray-900 text-white p-4 overflow-y-auto flex flex-col">
@@ -48,13 +90,14 @@ const CodeEditor = () => {
         height="60vh"
         theme="vs-dark"
         language={lan}
-        value={code}
-        onChange={(value) => setCode(value)}
+        value={codeRef.current}
+        onChange={(value) => codeRef.current=value}
         className="rounded-lg border border-gray-700 w-full"
       />
       <div className="flex flex-col md:flex-row gap-4 mt-4">
         <button 
           onClick={handleRun} 
+          disabled={isLoading}
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Run Code
@@ -64,6 +107,18 @@ const CodeEditor = () => {
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
           Save Code
+        </button>
+        <label 
+         
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          <input type="file" accept='text/*' className='hidden'  onChange={handleImprot} /> import code
+        </label>
+        <button 
+          onClick={handleDownload} 
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Download
         </button>
       </div>
       <div className="mt-4 p-4 bg-gray-800 rounded-lg border border-gray-700 max-w-full overflow-x-auto w-full">

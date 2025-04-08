@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { projectStore } from '../store/projectStore';
 import { Link } from 'react-router-dom';
+import { MdDelete } from "react-icons/md";
 
 const ExistingProject = () => {
     const {projects,getProject,seletCurrentProject,deleteProject}=projectStore()
@@ -47,7 +48,7 @@ const ExistingProject = () => {
                 onClick={(e) => { deletes(project._id, project.projectName) }}
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all"
             >
-                Delete
+               <MdDelete/>
             </button>
         </div>
     </div>

@@ -7,6 +7,7 @@ export const projectStore=create((set,get)=>({
     projects:[],
     currentProject:null,
     outputCode:null,
+    isLoading:false,
     getProject:async()=>{
         try {
             const res =await axiosIn.post("/project/getProject")
@@ -51,6 +52,7 @@ export const projectStore=create((set,get)=>({
         }
         
         try {
+            set({isLoading:true})
             const api=axios.create({
                 baseURL:'https://emkc.org/api/v2/piston'
             })
@@ -66,6 +68,8 @@ export const projectStore=create((set,get)=>({
         } catch (error) {
             console.log(error);
             
+        }finally{
+            set({isLoading:false})
         }
     },
     saveProject:async(code,projectId)=>{
