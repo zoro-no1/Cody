@@ -30,7 +30,7 @@ export const codeSave=async(req,res)=>{
     const {code,projectId}=req.body
     try {
         const project=await Project.findOneAndUpdate({$and :[{_id:projectId},{user:req.user._id}]},{code})
-        console.log(project);
+        // console.log(project);
         
         if(!project){
             return res.status(401).json({
@@ -78,7 +78,8 @@ export const getProject=async(req,res)=>{
             })
         }
         return res.status(200).json({
-            projects
+            projects,
+            
         })
     } catch (error) {
         return res.status(500).json({

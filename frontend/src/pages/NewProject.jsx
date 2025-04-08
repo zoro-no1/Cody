@@ -25,7 +25,7 @@ const NewProject = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+    <div className="flex items-center justify-center min-h-[80vh] bg-gradient-to-r from-gray-900 to-gray-800 text-white">
       <div className="bg-gray-800 p-8 rounded-xl shadow-xl w-96 border border-gray-700">
         <h1 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">Create New Project</h1>
         {error && <p className="text-red-500 mb-4">{error}</p>}

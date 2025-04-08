@@ -19,7 +19,7 @@ const LogoutPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div className="flex items-center justify-center min-h-[80vh] bg-gradient-to-r from-gray-900 to-gray-800 text-white">
             <div className="w-full max-w-md p-8 space-y-6 bg-gray-900 rounded-xl shadow-xl border border-gray-700 text-center">
                 <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-500">
                    Logout

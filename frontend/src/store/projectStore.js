@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { axiosIn } from "../util/axios";
 import axios from "axios";
+import toast from "react-hot-toast"
 
 export const projectStore=create((set,get)=>({
     projects:[],
@@ -12,24 +13,27 @@ export const projectStore=create((set,get)=>({
             set({projects:res.data.projects})
         } catch (error) {
             console.log(error);
-            
+            toast.error("somthing went wrong")
         }
     },
     newProject:async(projectName,projectLanguage)=>{
         try {
             const res=await axiosIn.post("/project/create",{projectName,projectLanguage})
-           
             set({currentProject:res.data.message})
+            toast.success("Project Created")
         } catch (error) {
             console.log(error);
+            toast.error("Somthing went Wrong While Creating A Project")
             
         }
     },
     deleteProject:async(id)=>{
         try {
             await axiosIn.get(`/project/delete/${id}`)
+            toast.success("Project Delete")
         } catch (error) {
             console.log(error);
+            toast.error("Somthing went Wrong While Deleting A Project")
             
         }
     },
@@ -73,10 +77,10 @@ export const projectStore=create((set,get)=>({
         }
         try {
             const res=await axiosIn.post("/project/codeSave",{code,projectId})
-            
+            toast.success("Save")
         } catch (error) {
             console.log(error);
-            
+            toast.error("Not Save")
         }
     }
 }))

@@ -34,7 +34,7 @@ const CodeEditor = () => {
   }, [code]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4 overflow-y-auto flex flex-col">
+    <div className="min-h-[80vh] bg-gray-900 text-white p-4 overflow-y-auto flex flex-col">
     <div className="mb-6">
   <h1 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 mb-1 drop-shadow-md">
     {currentProject?.projectName}

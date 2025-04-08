@@ -18,7 +18,7 @@ const ExistingProject = () => {
     
 
   return (
-    <div className="bg-gradient-to-r from-gray-900 to-gray-800 min-h-screen text-white">
+    <div className="bg-gradient-to-r from-gray-900 to-gray-800 min-h-[80vh] text-white">
       <div className="flex flex-col items-center p-8">
         <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-8">Existing Projects</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-1">

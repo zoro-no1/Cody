@@ -1,5 +1,6 @@
 import {create} from "zustand"
 import { axiosIn } from "../util/axios.js"
+import toast from "react-hot-toast"
 
 export const authStore=create((set,get)=>({
     authUser:null,
@@ -21,6 +22,7 @@ export const authStore=create((set,get)=>({
         try {
             const res= await axiosIn.post("/auth/logout")
             set({authUser:null})
+            toast.success("Logout")
         } catch (error) {
             console.log(error);
         }

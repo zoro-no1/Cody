@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 to-gray-800 text-white px-4">
+    <div className="flex flex-col items-center justify-center min-h-[80vh] bg-gradient-to-r from-gray-900 to-gray-800 text-white px-4">
       <div className="text-center bg-gray-900 p-8 md:p-12 rounded-2xl shadow-2xl w-full max-w-5xl border border-gray-700">
         <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 mb-6 drop-shadow-lg">
           Online IDE

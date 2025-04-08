@@ -10,6 +10,8 @@ import ExistingProject from "./pages/ExistingProject.jsx"
 import NewProject from "./pages/NewProject.jsx"
 import CodingPage from "./pages/CodingPage.jsx"
 import LogoutPage from "./pages/LogoutPage.jsx"
+import { Toaster } from "react-hot-toast"
+import { Footer } from "./components/Footer.jsx"
 function App() {
 
   const {checkAuth,authUser}=authStore()
@@ -31,7 +33,11 @@ function App() {
       <Route path="/logout" element={authUser?<LogoutPage/>:<Navigate to="/auth"/>}/>
       <Route path='/*' element={<NoPage/>}/>
     </Routes>
-     
+    <Footer/>
+    <Toaster
+     position="top-center"
+     reverseOrder={false}
+    />
     </>
   )
 }

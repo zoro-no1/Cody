@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { axiosIn } from "../util/axios.js";
 import { authStore } from "../store/authStore";
+import toast from "react-hot-toast"
 
 function Auth() {
     const [isLogin, setIsLogin] = useState(true); // Toggle between Login & Sign-Up
@@ -19,6 +20,7 @@ function Auth() {
         try {
             const response = await axiosIn.post(url, payload);
             checkAuth();
+            toast.success(response.data.message)
         } catch (error) {
             console.log(error);
             setMessage("Error occurred. Please try again.");
