@@ -45,7 +45,7 @@ export const projectStore=create((set,get)=>({
         }
     },
     getCodeRun:async(code,lan)=>{
-        console.log(code,lan);
+        
         if(!code||!lan){
             return set({output:"nothing"})
         }
@@ -62,8 +62,6 @@ export const projectStore=create((set,get)=>({
                     "content": code
                   } ],
             })
-            console.log(res.data.run);
-            
             set({outputCode:res.data.run.stdout || res.data.run.stderr})
         } catch (error) {
             console.log(error);
