@@ -19,11 +19,14 @@ function Auth() {
 
         try {
             const response = await axiosIn.post(url, payload);
+            // console.log(response.data);
+            
             checkAuth();
+            localStorage.setItem("token", response.data.token);
             toast.success(response.data.message)
         } catch (error) {
-            console.log(error);
-            setMessage("Error occurred. Please try again.");
+            console.log(error.response.data.error);
+            // setMessage(error || "An error occurred. Please try again.");
         }
     };
 

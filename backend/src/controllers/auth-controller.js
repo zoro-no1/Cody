@@ -1,12 +1,21 @@
 import User from "../modles/user.js"
+import {z} from "zod"
 
 export const signin=async (req,res)=>{
     const {username,email,password}=req.body
     try {
+        const resBody=z.object({
+            username:z.string().min(3).max(20),
+            email:z.string().min(5).max(100).email(),
+            password:z.string().min(6).max(30)
+        })
+        const result=resBody.safeParse(req.body)
 
-        if(!username||!email||!password){
+        if(!result.success){
             return res.status(404).json({
-                message:"detail required"
+                message:"detail required",
+                error:result.error,
+                
             })
         }
         const exist =await User.findOne({email})
@@ -31,12 +40,14 @@ export const signin=async (req,res)=>{
 
         res.status(200).cookie("token",token)
         .json({
-            message:"user created"
+            message:"user created",
+            token:token
         })
         
     } catch (error) {
         console.log(error);
         
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
 export const login = async (req,res)=>{
@@ -62,7 +73,8 @@ export const login = async (req,res)=>{
        const token=await user.refreshToken()
 
        res.status(200).cookie("token",token,).json({
-        message:"login"
+        message:"login",
+        token:token
        })
 
     } catch (error) {
